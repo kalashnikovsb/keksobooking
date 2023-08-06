@@ -28,7 +28,7 @@ const getObjectOffer = () => {
 
   return {
     author: {
-      avatar: `img/avatars/user${getRandomInteger(1, 10)}.png`,
+      avatar: `../img/avatars/user0${getRandomInteger(1, 8)}.png`,
     },
     offer: {
       title: getRandomArrayElement(DESCRIPTIONS),
