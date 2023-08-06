@@ -1,3 +1,4 @@
+// min max включительно
 const getRandomInteger = (min, max) => {
   if (min > max) {
     [min, max] = [max , min];
