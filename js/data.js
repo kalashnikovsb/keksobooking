@@ -22,7 +22,7 @@ const DESCRIPTIONS = [
   'Morbi consectetur scelerisque turpis.',
 ];
 
-const getObjectOffer = () => {
+const getOfferObject = () => {
   const locationX = getRandomFloating(35.65, 35.7, 5);
   const locationY = getRandomFloating(139.7, 139.8, 5);
 
@@ -50,4 +50,4 @@ const getObjectOffer = () => {
   };
 };
 
-export {getObjectOffer};
+export {getOfferObject};
