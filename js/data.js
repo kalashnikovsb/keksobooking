@@ -1,5 +1,6 @@
 import {getRandomInteger, getRandomFloating, getRandomArrayElement, getRandomSubArray} from './utils.js';
 
+const QTY_OF_OFFERS = 10;
 const NAMES = ['Вася', 'Машуша', 'Алёна', 'Жуля', 'Игорёк', 'Петрушка', 'Ярополк', 'Мономах', 'Валентин', 'Натали'];
 const TYPES = ['palace', 'flat', 'house', 'bungalow'];
 const TIMES = ['12:00', '13:00', '14:00'];
@@ -50,4 +51,6 @@ const getOfferObject = () => {
   };
 };
 
-export {getOfferObject};
+const getOfferObjects = () => new Array(QTY_OF_OFFERS).fill('').map(() => getOfferObject());
+
+export {getOfferObjects};
