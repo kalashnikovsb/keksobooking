@@ -12,11 +12,8 @@ const MinPricesOfTypes = {
 
 const adjustPrice = () => {
   const minValue = MinPricesOfTypes[housingType.value];
-  housingPrice.placeholder = MinPricesOfTypes[housingType.value];
-
-  if (housingPrice.value < minValue && housingPrice.value) {
-    housingPrice.value = minValue;
-  }
+  housingPrice.placeholder = minValue;
+  housingPrice.min = minValue;
 };
 
 housingType.addEventListener('change', adjustPrice);
