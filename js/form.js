@@ -16,5 +16,6 @@ const adjustPrice = () => {
   housingPrice.min = minValue;
 };
 
+adjustPrice();
 housingType.addEventListener('change', adjustPrice);
 housingPrice.addEventListener('change', adjustPrice);
