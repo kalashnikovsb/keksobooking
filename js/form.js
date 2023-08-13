@@ -28,7 +28,6 @@ const adjustTime = (evt, element) => {
   }
 };
 
-
 adjustPrice();
 housingType.addEventListener('change', adjustPrice);
 housingTimeIn.addEventListener(('change'), (evt) => adjustTime(evt, housingTimeOut));
