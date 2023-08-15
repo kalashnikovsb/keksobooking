@@ -18,20 +18,15 @@ const adjustPrice = () => {
   housingPrice.min = minValue;
 };
 
-const adjustTime = (evt, element) => {
-  for (let item of element.children) {
-    if (item.value === evt.target.value) {
-      item.setAttribute('selected', '');
-    } else {
-      item.removeAttribute('selected');
-    }
-  }
+const adjustTime = (evt) => {
+  const targetSelectElement = (evt.target.id === 'timein') ? housingTimeOut : housingTimeIn;
+  targetSelectElement.value = evt.target.value;
 };
 
 adjustPrice();
 housingType.addEventListener('change', adjustPrice);
-housingTimeIn.addEventListener(('change'), (evt) => adjustTime(evt, housingTimeOut));
-housingTimeOut.addEventListener(('change'), (evt) => adjustTime(evt, housingTimeIn));
+housingTimeIn.addEventListener(('change'), adjustTime);
+housingTimeOut.addEventListener(('change'), adjustTime);
 
 
 
