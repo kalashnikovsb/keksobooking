@@ -1,0 +1,24 @@
+const mainForm = document.querySelector('.ad-form');
+const filterForm = document.querySelector('.map__filters');
+const mainFormFieldsetElements = document.querySelectorAll('fieldset');
+
+const PAGE_DISABLED_CLASS = 'ad-form--disabled';
+
+const deactivatePage = () => {
+  mainForm.classList.add(PAGE_DISABLED_CLASS);
+  filterForm.classList.add(PAGE_DISABLED_CLASS);
+
+  mainFormFieldsetElements.forEach((fieldset) => {
+    fieldset.setAttribute('disabled', '');
+  });
+  Array.from(filterForm.children).forEach((element) => {
+    element.setAttribute('disabled', '');
+  });
+
+};
+
+const activatePage = () => {
+
+};
+
+deactivatePage();

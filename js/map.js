@@ -5,4 +5,3 @@ const mapElement = document.querySelector('#map-canvas');
 
 const offers = getOfferObjects();
 const offerElements = getOfferElements(offers);
-mapElement.appendChild(offerElements[0]);
