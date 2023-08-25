@@ -7,7 +7,6 @@ const PAGE_DISABLED_CLASS = 'ad-form--disabled';
 const deactivatePage = () => {
   mainForm.classList.add(PAGE_DISABLED_CLASS);
   filterForm.classList.add(PAGE_DISABLED_CLASS);
-
   mainFormFieldsetElements.forEach((fieldset) => {
     fieldset.setAttribute('disabled', '');
   });
@@ -18,7 +17,16 @@ const deactivatePage = () => {
 };
 
 const activatePage = () => {
-
+  mainForm.classList.remove(PAGE_DISABLED_CLASS);
+  filterForm.classList.remove(PAGE_DISABLED_CLASS);
+  mainFormFieldsetElements.forEach((fieldset) => {
+    fieldset.removeAttribute('disabled', '');
+  });
+  Array.from(filterForm.children).forEach((element) => {
+    element.removeAttribute('disabled', '');
+  });
 };
 
 deactivatePage();
+
+export {deactivatePage, activatePage};
