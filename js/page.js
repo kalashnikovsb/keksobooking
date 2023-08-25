@@ -13,7 +13,6 @@ const deactivatePage = () => {
   Array.from(filterForm.children).forEach((element) => {
     element.setAttribute('disabled', '');
   });
-
 };
 
 const activatePage = () => {

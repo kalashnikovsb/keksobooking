@@ -1,3 +1,3 @@
-import './map.js';
 import './page.js';
+import './map.js';
 import './form.js';

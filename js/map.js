@@ -1,6 +1,12 @@
 import {activatePage} from './page.js';
+import {changeAddress} from './form.js';
 // import {getOfferObjects} from './data.js';
 // import {getOfferElements} from './offers.js';
+
+const CITY_CENTER = {
+  lat: 35.685,
+  lng: 139.755,
+};
 
 const mapElement = document.querySelector('#map-canvas');
 
@@ -8,14 +14,9 @@ const mapElement = document.querySelector('#map-canvas');
 // const offerElements = getOfferElements(offers);
 
 
-
-
 const map = window.L.map(mapElement)
   .on('load', activatePage)
-  .setView({
-    lat: 35.685,
-    lng: 139.755,
-  }, 12);
+  .setView(CITY_CENTER, 12);
 
 window.L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -25,20 +26,18 @@ window.L.tileLayer(
 ).addTo(map);
 
 
-
-
-
 const mainMarker = window.L.marker(
-  {
-    lat: 35.685,
-    lng: 139.755,
-  },
+  CITY_CENTER,
   {
     draggable: true,
   },
 );
 mainMarker.addTo(map);
 
+
 mainMarker.on('move', () => {
-  console.log(mainMarker.getLatLng());
+  const lat = mainMarker.getLatLng().lat.toFixed(5);
+  const lng = mainMarker.getLatLng().lng.toFixed(5);
+  const coords = `${lat}, ${lng}`;
+  changeAddress(coords);
 });
