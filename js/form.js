@@ -24,8 +24,8 @@ const adjustTime = (evt) => {
   targetSelectElement.value = evt.target.value;
 };
 
-const changeAddress = (value) => {
-  housingAddress.value = value;
+const setAddress = (value) => {
+  housingAddress.value = `${value.lat}, ${value.lng}`;
 };
 
 adjustPrice();
@@ -33,4 +33,4 @@ housingType.addEventListener('change', adjustPrice);
 housingTimeIn.addEventListener('change', adjustTime);
 housingTimeOut.addEventListener('change', adjustTime);
 
-export {changeAddress};
+export {setAddress};
