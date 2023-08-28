@@ -1,7 +1,7 @@
 import {activatePage} from './page.js';
 import {setAddress} from './form.js';
-// import {getOfferObjects} from './data.js';
-// import {getOfferElements} from './offers.js';
+import {getOfferObjects} from './data.js';
+import {getOfferElement} from './offer.js';
 
 const CITY_CENTER = {
   lat: 35.68555,
@@ -10,12 +10,24 @@ const CITY_CENTER = {
 
 const mapElement = document.querySelector('#map-canvas');
 
+const mainPinIcon = window.L.icon({
+  iconUrl: '../img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
+
+const pinIcon = window.L.icon({
+  iconUrl: '../img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
 const map = window.L.map(mapElement)
   .on('load', () => {
     activatePage();
     setAddress(CITY_CENTER);
   })
-  .setView(CITY_CENTER, 12);
+  .setView(CITY_CENTER, 13);
 
 window.L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -28,10 +40,10 @@ const mainMarker = window.L.marker(
   CITY_CENTER,
   {
     draggable: true,
+    icon: mainPinIcon,
   },
 );
 mainMarker.addTo(map);
-
 
 mainMarker.on('move', () => {
   const lat = mainMarker.getLatLng().lat.toFixed(5);
@@ -39,7 +51,20 @@ mainMarker.on('move', () => {
   setAddress({lat, lng});
 });
 
+const offers = getOfferObjects();
 
-// const offers = getOfferObjects();
-// const offerElements = getOfferElements(offers);
+offers.forEach((offer) => {
+  const marker = window.L.marker(
+    {
+      lat: offer.location.x,
+      lng: offer.location.y,
+    },
+    {
+      icon: pinIcon,
+    },
+  );
+  marker
+    .addTo(map)
+    .bindPopup(getOfferElement(offer));
+});
 

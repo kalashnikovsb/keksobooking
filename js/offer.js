@@ -37,18 +37,18 @@ const getOfferFeatures = (offerFeatures, data) => {
 };
 
 const getOfferElement = (data) => {
-  const offer = offerTemplate.cloneNode(true);
+  const offerElement = offerTemplate.cloneNode(true);
 
-  const offerTitle = offer.querySelector('.popup__title');
-  const offerAddress = offer.querySelector('.popup__text--address');
-  const offerPrice = offer.querySelector('.popup__text--price');
-  const offerType = offer.querySelector('.popup__type');
-  const offerCapacity = offer.querySelector('.popup__text--capacity');
-  const offerTime = offer.querySelector('.popup__text--time');
-  const offerFeatures = offer.querySelector('.popup__features');
-  const offerDescription = offer.querySelector('.popup__description');
-  const offerPhotos = offer.querySelector('.popup__photos');
-  const offerAvatar = offer.querySelector('.popup__avatar');
+  const offerTitle = offerElement.querySelector('.popup__title');
+  const offerAddress = offerElement.querySelector('.popup__text--address');
+  const offerPrice = offerElement.querySelector('.popup__text--price');
+  const offerType = offerElement.querySelector('.popup__type');
+  const offerCapacity = offerElement.querySelector('.popup__text--capacity');
+  const offerTime = offerElement.querySelector('.popup__text--time');
+  const offerFeatures = offerElement.querySelector('.popup__features');
+  const offerDescription = offerElement.querySelector('.popup__description');
+  const offerPhotos = offerElement.querySelector('.popup__photos');
+  const offerAvatar = offerElement.querySelector('.popup__avatar');
 
   offerTitle.textContent = data.offer.title;
   offerAddress.textContent = data.offer.address;
@@ -60,7 +60,7 @@ const getOfferElement = (data) => {
   offerDescription.textContent = data.offer.description;
   getOfferPhotos(offerPhotos, data.offer.photos);
   offerAvatar.src = data.author.avatar ? data.author.avatar : '../img/avatars/default.png';
-  return offer;
+  return offerElement;
 };
 
 export {getOfferElement};
