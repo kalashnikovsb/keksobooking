@@ -19,10 +19,31 @@ const MinPricesOfTypes = {
   'palace': 10000,
 };
 
+const adjustTitle = () => {
+  const valueLength = housingTitle.value.length;
+  if (valueLength < MIN_LENGTH_TITLE) {
+    housingTitle.setCustomValidity(`Заголовок объявления должен содержать минимум ${MIN_LENGTH_TITLE} символов. Добавьте ${MIN_LENGTH_TITLE - housingTitle.value.length} символов`);
+  } else if (valueLength > MAX_LENGTH_TITLE) {
+    housingTitle.setCustomValidity(`Заголовок объявления должен содержать максимум ${MAX_LENGTH_TITLE} символов. Удалите ${housingTitle.value.length - MAX_LENGTH_TITLE} символов`);
+  } else {
+    housingTitle.setCustomValidity('');
+  }
+  housingTitle.reportValidity();
+};
+
 const adjustPrice = () => {
   const minValue = MinPricesOfTypes[housingType.value];
+  const currentValue = housingPrice.value;
   housingPrice.placeholder = minValue;
   housingPrice.min = minValue;
+  if (currentValue < minValue || currentValue < MIN_PRICE) {
+    housingPrice.setCustomValidity(`Цена не может быть ниже ${minValue}`);
+  } else if (currentValue > MAX_PRICE) {
+    housingPrice.setCustomValidity(`Цена не может быть выше ${MAX_PRICE}`);
+  } else {
+    housingPrice.setCustomValidity('');
+  }
+  housingPrice.reportValidity();
 };
 
 const adjustTime = (evt) => {
@@ -34,41 +55,10 @@ const setAddress = (value) => {
   housingAddress.value = `${value.lat}, ${value.lng}`;
 };
 
-adjustPrice();
+housingTitle.addEventListener('input', adjustTitle);
 housingType.addEventListener('change', adjustPrice);
+housingPrice.addEventListener('input', adjustPrice);
 housingTimeIn.addEventListener('change', adjustTime);
 housingTimeOut.addEventListener('change', adjustTime);
-
-
-housingPrice.addEventListener('input', (evt) => {
-  const minValue = MinPricesOfTypes[housingType.value];
-  const currentValue = evt.target.value;
-
-  if (currentValue < minValue || currentValue < MIN_PRICE) {
-    housingPrice.setCustomValidity(`Цена не может быть ниже ${minValue}`);
-  } else if (currentValue > MAX_PRICE) {
-    housingPrice.setCustomValidity(`Цена не может быть выше ${MAX_PRICE}`);
-  } else {
-    housingPrice.setCustomValidity('');
-  }
-
-  housingPrice.reportValidity();
-});
-
-
-housingTitle.addEventListener('input', () => {
-  const valueLength = housingTitle.value.length;
-
-  if (valueLength < MIN_LENGTH_TITLE) {
-    housingTitle.setCustomValidity(`Заголовок объявления должен содержать минимум ${MIN_LENGTH_TITLE} символов. Добавьте ${MIN_LENGTH_TITLE - housingTitle.value.length} символов`);
-  } else if (valueLength > MAX_LENGTH_TITLE) {
-    housingTitle.setCustomValidity(`Заголовок объявления должен содержать максимум ${MAX_LENGTH_TITLE} символов. Удалите ${housingTitle.value.length - MAX_LENGTH_TITLE} символов`);
-  } else {
-    housingTitle.setCustomValidity('');
-  }
-
-  housingTitle.reportValidity();
-});
-
 
 export {setAddress};
