@@ -1,10 +1,12 @@
 const mainForm = document.querySelector('.ad-form');
-const housingType = mainForm.querySelector('#type');
+const housingTitle = mainForm.querySelector('#title');
 const housingPrice = mainForm.querySelector('#price');
+const housingType = mainForm.querySelector('#type');
 const housingTimeIn = mainForm.querySelector('#timein');
 const housingTimeOut = mainForm.querySelector('#timeout');
 const housingAddress = mainForm.querySelector('#address');
-const housingTitle = mainForm.querySelector('#title');
+const housingRoomNumber = mainForm.querySelector('#room_number');
+const housingCapacity = mainForm.querySelector('#capacity');
 
 const MIN_LENGTH_TITLE = 30;
 const MAX_LENGTH_TITLE = 1000;
