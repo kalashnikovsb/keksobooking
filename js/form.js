@@ -53,6 +53,32 @@ const adjustTime = (evt) => {
   targetSelectElement.value = evt.target.value;
 };
 
+const adjustCapacity = () => {
+  const rooms = +housingRoomNumber.value;
+  const capacity = +housingCapacity.value;
+
+  if (rooms === 100 && capacity === 0) {
+    housingCapacity.setCustomValidity('');
+  } else if (rooms >= capacity && rooms !== 100 && capacity !== 0) {
+    housingCapacity.setCustomValidity('');
+  } else {
+    switch (rooms) {
+      case 1:
+        housingCapacity.setCustomValidity('Количество комнат подходит только 1 гостю');
+        break;
+      case 2:
+        housingCapacity.setCustomValidity('Количество комнат подходит 1 или 2 гостям');
+        break;
+      case 3:
+        housingCapacity.setCustomValidity('Количество комнат подходит для 1, 2 или 3 гостей');
+        break;
+      case 100:
+        housingCapacity.setCustomValidity('Такое количество комнат не подходит для гостей');
+    }
+  }
+  housingCapacity.reportValidity();
+};
+
 const setAddress = (value) => {
   housingAddress.value = `${value.lat}, ${value.lng}`;
 };
@@ -62,5 +88,7 @@ housingType.addEventListener('change', adjustPrice);
 housingPrice.addEventListener('input', adjustPrice);
 housingTimeIn.addEventListener('change', adjustTime);
 housingTimeOut.addEventListener('change', adjustTime);
+housingRoomNumber.addEventListener('change', adjustCapacity);
+housingCapacity.addEventListener('change', adjustCapacity);
 
 export {setAddress};
