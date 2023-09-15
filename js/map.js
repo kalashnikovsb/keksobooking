@@ -1,6 +1,6 @@
 import {activatePage} from './page.js';
 import {setAddress} from './form.js';
-import {getOfferObjects} from './data.js';
+import {getData} from './api.js';
 import {getOfferElement} from './offer.js';
 
 const CITY_CENTER = {
@@ -51,7 +51,10 @@ mainMarker.on('move', () => {
   setAddress({lat, lng});
 });
 
-const offers = getOfferObjects();
+const offers = getData(
+  (response) => {console.log(response)},
+  () => {console.log('Ошибка')}
+);
 
 offers.forEach((offer) => {
   const marker = window.L.marker(
