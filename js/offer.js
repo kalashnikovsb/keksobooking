@@ -8,7 +8,7 @@ const RussianTypes = {
 };
 
 const getOfferPhotos = (offerPhotos, data) => {
-  if (data.length === 0) {
+  if (!data) {
     offerPhotos.remove();
     return;
   }
@@ -24,7 +24,7 @@ const getOfferPhotos = (offerPhotos, data) => {
 };
 
 const getOfferFeatures = (offerFeatures, data) => {
-  if (data.length === 0) {
+  if (!data) {
     offerFeatures.remove();
     return;
   }

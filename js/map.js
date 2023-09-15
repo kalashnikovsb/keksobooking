@@ -51,23 +51,32 @@ mainMarker.on('move', () => {
   setAddress({lat, lng});
 });
 
-const offers = getData(
-  (response) => {console.log(response)},
-  () => {console.log('Ошибка')}
+getData(
+  (response) => {
+    console.log(response[0]);
+    renderMarkers(response);
+  },
+
+  () => console.log('Ошибка')
 );
 
-offers.forEach((offer) => {
-  const marker = window.L.marker(
-    {
-      lat: offer.location.x,
-      lng: offer.location.y,
-    },
-    {
-      icon: pinIcon,
-    },
-  );
-  marker
-    .addTo(map)
-    .bindPopup(getOfferElement(offer));
-});
+
+const renderMarkers = (offers) => {
+  offers.forEach((offer) => {
+    const marker = window.L.marker(
+      {
+        lat: offer.location.lat,
+        lng: offer.location.lng,
+      },
+      {
+        icon: pinIcon,
+      },
+    );
+    marker
+      .addTo(map)
+      .bindPopup(getOfferElement(offer));
+  });
+};
+
+
 
