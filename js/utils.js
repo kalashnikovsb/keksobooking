@@ -31,4 +31,24 @@ const getRandomSubArray = (array) => {
   return randomSubArray;
 };
 
-export {getRandomInteger, getRandomFloating, getRandomArrayElement, getRandomSubArray};
+// Предупреждение при проблемах с загрузкой данных
+const showAlert = (message) => {
+  const alert = document.createElement('DIV');
+  alert.textContent = message;
+  alert.style.position = 'fixed';
+  alert.style.zIndex = 1000;
+  alert.style.top = 0;
+  alert.style.left = 0;
+  alert.style.right = 0;
+  alert.style.padding = '5px';
+  alert.style.background = '#f00';
+  alert.style.fontSize = '16px';
+  alert.style.color = '#fff';
+  alert.style.textAlign = 'center';
+  document.body.appendChild(alert);
+  setTimeout(() => {
+    document.body.removeChild(alert);
+  }, 5000);
+};
+
+export {getRandomInteger, getRandomFloating, getRandomArrayElement, getRandomSubArray, showAlert};

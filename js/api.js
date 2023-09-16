@@ -3,12 +3,34 @@ const getData = (onSuccess, onError) => {
     .then((response) => {
       if (response.ok) {
         return response.json();
+      } else {
+        throw Error(response.status);
       }
-      onError();
     })
     .then((response) => {
       onSuccess(response);
     })
+    .catch((message) => {
+      onError(`Ошибка загрузки данных. ${message}`);
+    });
 };
 
-export {getData};
+const sendData = (onSuccess, onError, body) => {
+  fetch('https://23.javascript.pages.academy/keksobooking',
+    {
+      method: 'POST',
+      body,
+    })
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+      } else {
+        throw Error();
+      }
+    })
+    .catch(() => {
+      onError();
+    });
+};
+
+export {getData, sendData};

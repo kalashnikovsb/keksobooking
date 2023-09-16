@@ -1,4 +1,9 @@
+import {sendData} from './api.js'
+import {setPageToDefault} from './page.js'
+import {showSuccessPopup, showErrorPopup} from './popups.js';
+
 const mainForm = document.querySelector('.ad-form');
+const formReset = document.querySelector('.ad-form__reset');
 const housingTitle = mainForm.querySelector('#title');
 const housingPrice = mainForm.querySelector('#price');
 const housingType = mainForm.querySelector('#type');
@@ -83,6 +88,11 @@ const setAddress = (value) => {
   housingAddress.value = `${value.lat}, ${value.lng}`;
 };
 
+const resetMainForm = () => {
+  mainForm.reset();
+  adjustPrice();
+};
+
 housingTitle.addEventListener('input', adjustTitle);
 housingType.addEventListener('change', adjustPrice);
 housingPrice.addEventListener('input', adjustPrice);
@@ -91,4 +101,21 @@ housingTimeOut.addEventListener('change', adjustTime);
 housingRoomNumber.addEventListener('change', adjustCapacity);
 housingCapacity.addEventListener('change', adjustCapacity);
 
-export {setAddress};
+mainForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  sendData(
+    () => {
+      setPageToDefault();
+      showSuccessPopup();
+    },
+    showErrorPopup,
+    new FormData(evt.target),
+  );
+});
+
+formReset.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  setPageToDefault();
+});
+
+export {setAddress, resetMainForm};

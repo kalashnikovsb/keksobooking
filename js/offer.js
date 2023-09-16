@@ -54,7 +54,7 @@ const getOfferElement = (data) => {
   offerAddress.textContent = data.offer.address;
   offerPrice.innerHTML = `${data.offer.price} <span>₽/ночь</span>`;
   offerType.textContent = RussianTypes[data.offer.type];
-  offerCapacity.textContent = `${data.offer.rooms} комнаты для ${data.offer.guests} гостей`;
+  offerCapacity.textContent = `${data.offer.rooms} комнат для ${data.offer.guests} гостей`;
   offerTime.textContent = `Заезд после ${data.offer.checkin}, выезд до ${data.offer.checkout}`;
   getOfferFeatures(offerFeatures, data.offer.features);
   offerDescription.textContent = data.offer.description;

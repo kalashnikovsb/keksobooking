@@ -1,3 +1,6 @@
+import {resetMainForm} from './form.js';
+import {resetMainMarker} from './map.js';
+
 const mainForm = document.querySelector('.ad-form');
 const filterForm = document.querySelector('.map__filters');
 const mainFormFieldsetElements = document.querySelectorAll('fieldset');
@@ -26,6 +29,11 @@ const activatePage = () => {
   });
 };
 
+const setPageToDefault = () => {
+  resetMainForm();
+  resetMainMarker();
+};
+
 deactivatePage();
 
-export {deactivatePage, activatePage};
+export {deactivatePage, activatePage, setPageToDefault};

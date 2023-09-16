@@ -1,14 +1,15 @@
+import {showAlert} from './utils.js';
 import {activatePage} from './page.js';
 import {setAddress} from './form.js';
 import {getData} from './api.js';
 import {getOfferElement} from './offer.js';
 
+const mapElement = document.querySelector('#map-canvas');
+
 const CITY_CENTER = {
   lat: 35.68555,
   lng: 139.75555,
 };
-
-const mapElement = document.querySelector('#map-canvas');
 
 const mainPinIcon = window.L.icon({
   iconUrl: '../img/main-pin.svg',
@@ -21,45 +22,6 @@ const pinIcon = window.L.icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-
-const map = window.L.map(mapElement)
-  .on('load', () => {
-    activatePage();
-    setAddress(CITY_CENTER);
-  })
-  .setView(CITY_CENTER, 13);
-
-window.L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
-
-const mainMarker = window.L.marker(
-  CITY_CENTER,
-  {
-    draggable: true,
-    icon: mainPinIcon,
-  },
-);
-mainMarker.addTo(map);
-
-mainMarker.on('move', () => {
-  const lat = mainMarker.getLatLng().lat.toFixed(5);
-  const lng = mainMarker.getLatLng().lng.toFixed(5);
-  setAddress({lat, lng});
-});
-
-getData(
-  (response) => {
-    console.log(response[0]);
-    renderMarkers(response);
-  },
-
-  () => console.log('Ошибка')
-);
-
 
 const renderMarkers = (offers) => {
   offers.forEach((offer) => {
@@ -78,5 +40,42 @@ const renderMarkers = (offers) => {
   });
 };
 
+const resetMainMarker = () => {
+  mainMarker.setLatLng(CITY_CENTER);
+  setAddress(CITY_CENTER);
+};
 
+const map = window.L.map(mapElement)
+  .on('load', () => {
+    activatePage();
+    getData(
+      (offers) => {renderMarkers(offers)},
+      (message) => showAlert(message),
+    );
+  })
+  .setView(CITY_CENTER, 13);
 
+window.L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  },
+).addTo(map);
+
+const mainMarker = window.L.marker(
+  CITY_CENTER,
+  {
+    draggable: true,
+    icon: mainPinIcon,
+  },
+);
+mainMarker.addTo(map);
+resetMainMarker();
+
+mainMarker.on('move', () => {
+  const lat = mainMarker.getLatLng().lat.toFixed(5);
+  const lng = mainMarker.getLatLng().lng.toFixed(5);
+  setAddress({lat, lng});
+});
+
+export {resetMainMarker};
