@@ -1,6 +1,6 @@
 import {showAlert} from './utils.js';
-import {activatePage} from './page.js';
-import {setAddress} from './form.js';
+import {activateMainForm, activateFilterForm} from './page.js';
+import {setAddress} from './mainForm.js';
 import {getData} from './api.js';
 import {getOfferElement} from './offer.js';
 
@@ -47,9 +47,12 @@ const resetMainMarker = () => {
 
 const map = window.L.map(mapElement)
   .on('load', () => {
-    activatePage();
+    activateMainForm();
     getData(
-      (offers) => {renderMarkers(offers)},
+      (offers) => {
+        renderMarkers(offers);
+        activateFilterForm();
+      },
       (message) => showAlert(message),
     );
   })

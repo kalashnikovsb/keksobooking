@@ -1,4 +1,4 @@
 import './map.js';
 import './page.js';
-import './form.js';
+import './mainForm.js';
 import './popups.js';
