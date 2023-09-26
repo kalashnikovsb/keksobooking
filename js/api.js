@@ -1,3 +1,5 @@
+let offers = [];
+
 const getData = (onSuccess, onError) => {
   fetch('https://23.javascript.pages.academy/keksobooking/data')
     .then((response) => {
@@ -8,6 +10,7 @@ const getData = (onSuccess, onError) => {
       }
     })
     .then((response) => {
+      offers = response.slice();
       onSuccess(response);
     })
     .catch((message) => {
@@ -33,4 +36,4 @@ const sendData = (onSuccess, onError, body) => {
     });
 };
 
-export {getData, sendData};
+export {getData, sendData, offers};

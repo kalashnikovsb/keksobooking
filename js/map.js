@@ -6,6 +6,8 @@ import {getOfferElement} from './offer.js';
 
 const mapElement = document.querySelector('#map-canvas');
 
+const renderedMarkers = [];
+
 const CITY_CENTER = {
   lat: 35.68555,
   lng: 139.75555,
@@ -23,7 +25,12 @@ const pinIcon = window.L.icon({
   iconAnchor: [20, 40],
 });
 
-const renderMarkers = (offers) => {
+const refreshMarkers = (offers) => {
+  if (renderedMarkers.length !== 0) {
+    renderedMarkers.forEach((marker) => {
+      marker.remove();
+    });
+  }
   offers.forEach((offer) => {
     const marker = window.L.marker(
       {
@@ -37,6 +44,7 @@ const renderMarkers = (offers) => {
     marker
       .addTo(map)
       .bindPopup(getOfferElement(offer));
+    renderedMarkers.push(marker);
   });
 };
 
@@ -50,7 +58,7 @@ const map = window.L.map(mapElement)
     activateMainForm();
     getData(
       (offers) => {
-        renderMarkers(offers);
+        refreshMarkers(offers.slice(0, 10));
         activateFilterForm();
       },
       (message) => showAlert(message),
@@ -81,4 +89,4 @@ mainMarker.on('move', () => {
   setAddress({lat, lng});
 });
 
-export {resetMainMarker};
+export {resetMainMarker, refreshMarkers};
