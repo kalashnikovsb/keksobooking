@@ -51,4 +51,14 @@ const showAlert = (message) => {
   }, 5000);
 };
 
-export {getRandomInteger, getRandomFloating, getRandomArrayElement, getRandomSubArray, showAlert};
+const debounce = (func, data) => {
+  const milliseconds = 500;
+  if (window.lastTimeout) {
+    window.clearTimeout(window.lastTimeout);
+  }
+  window.lastTimeout = window.setTimeout(() => {
+    func(data);
+  }, milliseconds);
+};
+
+export {getRandomInteger, getRandomFloating, getRandomArrayElement, getRandomSubArray, showAlert, debounce};

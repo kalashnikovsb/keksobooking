@@ -1,5 +1,6 @@
 import {offers} from './api.js';
 import {refreshMarkers} from './map.js';
+import {debounce} from './utils.js';
 
 const filterForm = document.querySelector('.map__filters');
 
@@ -49,7 +50,7 @@ const filterByGuests = (offer, value) => {
 
 const filterByFeatures = (offer, isNecessary, feature) => {
   const {features} = offer.offer;
-  if (!features) {
+  if (!features && isNecessary) {
     return false;
   }
   if (isNecessary) {
@@ -106,7 +107,7 @@ filterForm.addEventListener('change', (evt) => {
     currentFilter[key] = evt.target.checked ? true : false;
   }
   const tempOffers = getFilteredOffers();
-  refreshMarkers(tempOffers);
+  debounce(refreshMarkers, tempOffers);
 });
 
 export {resetFilterForm};
