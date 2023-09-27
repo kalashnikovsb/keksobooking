@@ -3,16 +3,59 @@ import {refreshMarkers} from './map.js';
 
 const filterForm = document.querySelector('.map__filters');
 
+const LOW_PRICE = 10000;
+const HIGH_PRICE = 50000;
+
 const resetFilterForm = () => {
   filterForm.reset();
 };
 
 const filterByType = (offer, value) => {
+  const {type} = offer.offer;
   if (value === 'any') {
     return true;
   } else {
-    return offer.offer.type === currentFilter.type;
+    return type === currentFilter.type;
   }
+};
+
+const filterByPrice = (offer, value) => {
+  const {price} = offer.offer;
+  switch(value) {
+    case 'any':
+      return true;
+    case 'low':
+      return price < LOW_PRICE ? true : false;
+    case 'high':
+      return price > HIGH_PRICE ? true : false;
+    default:
+      return price >= LOW_PRICE && price <= HIGH_PRICE ? true : false;
+  }
+};
+
+const filterByRooms = (offer, value) => {
+  const {rooms} = offer.offer;
+  if (value === 'any') {
+    return true;
+  } else {
+    return rooms === +value;
+  }
+};
+
+const filterByGuests = (offer, value) => {
+  const {guests} = offer.offer;
+  return (value === 'any' || guests === +value) ? true : false;
+};
+
+const filterByFeatures = (offer, isNecessary, feature) => {
+  const {features} = offer.offer;
+  if (!features) {
+    return false;
+  }
+  if (isNecessary) {
+    return features.indexOf(feature) !== -1;
+  }
+  return true;
 };
 
 const currentFilter = {
@@ -30,24 +73,27 @@ const currentFilter = {
 
 const filters = {
   type: filterByType,
-//   price: filterByPrice,
-//   rooms: filterByRooms,
-//   guests: filterByGuests,
-//   wifi: filterByFeatures,
-//   dishwasher: filterByFeatures,
-//   parking: filterByFeatures,
-//   washer: filterByFeatures,
-//   elevator: filterByFeatures,
-//   conditioner: filterByFeatures,
+  price: filterByPrice,
+  rooms: filterByRooms,
+  guests: filterByGuests,
+  wifi: filterByFeatures,
+  dishwasher: filterByFeatures,
+  parking: filterByFeatures,
+  washer: filterByFeatures,
+  elevator: filterByFeatures,
+  conditioner: filterByFeatures,
 };
 
 const getFilteredOffers = () => {
-  const tempOffers = offers.slice();
-  return tempOffers.filter((offer) => {
-    for(let key in currentFilter) {
-      return (filters[key](offer, currentFilter[key])) ? true : false;
+  const tempOffers =  offers.slice().filter((offer) => {
+    for (let key in currentFilter) {
+      if (!filters[key](offer, currentFilter[key], key)) {
+        return false
+      }
     }
+    return true;
   });
+  return tempOffers;
 };
 
 filterForm.addEventListener('change', (evt) => {

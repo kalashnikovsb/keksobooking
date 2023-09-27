@@ -26,12 +26,13 @@ const pinIcon = window.L.icon({
 });
 
 const refreshMarkers = (offers) => {
+  const tempOffers = offers.slice(0, 10);
   if (renderedMarkers.length !== 0) {
     renderedMarkers.forEach((marker) => {
       marker.remove();
     });
   }
-  offers.forEach((offer) => {
+  tempOffers.forEach((offer) => {
     const marker = window.L.marker(
       {
         lat: offer.location.lat,
@@ -58,7 +59,7 @@ const map = window.L.map(mapElement)
     activateMainForm();
     getData(
       (offers) => {
-        refreshMarkers(offers.slice(0, 10));
+        refreshMarkers(offers);
         activateFilterForm();
       },
       (message) => showAlert(message),

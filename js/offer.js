@@ -5,6 +5,7 @@ const RussianTypes = {
   'bungalow': 'Бунгало',
   'house': 'Дом',
   'palace': 'Дворец',
+  'hotel': 'Отель',
 };
 
 const getOfferPhotos = (offerPhotos, data) => {
