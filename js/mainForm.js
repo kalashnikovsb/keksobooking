@@ -12,11 +12,17 @@ const housingTimeOut = mainForm.querySelector('#timeout');
 const housingAddress = mainForm.querySelector('#address');
 const housingRoomNumber = mainForm.querySelector('#room_number');
 const housingCapacity = mainForm.querySelector('#capacity');
+const avatarInput = mainForm.querySelector('#avatar');
+const avatarImage = mainForm.querySelector('.ad-form-header__preview > img');
+const housingInput = mainForm.querySelector('#images');
+const housingImages = mainForm.querySelector('.ad-form__photo');
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 const MIN_LENGTH_TITLE = 30;
 const MAX_LENGTH_TITLE = 1000;
 const MIN_PRICE = 0;
 const MAX_PRICE = 1000000;
+
 
 const MinPricesOfTypes = {
   'bungalow': 0,
@@ -116,6 +122,43 @@ mainForm.addEventListener('submit', (evt) => {
 formReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   setPageToDefault();
+});
+
+avatarInput.addEventListener('change', () => {
+  const file = avatarInput.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((fileType) => {
+    return fileName.endsWith(fileType);
+  });
+
+  if(matches) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      avatarImage.src = reader.result;
+    });
+    reader.readAsDataURL(file);
+  }
+});
+
+housingInput.addEventListener('change', () => {
+  const file = housingInput.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((fileType) => {
+    return fileName.endsWith(fileType);
+  });
+
+  if(matches) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      const housingImage = document.createElement('img');
+      housingImage.src = reader.result;
+      housingImage.width = 70;
+      housingImage.height = 70;
+      housingImage.alt = 'Фотография жилья';
+      housingImages.appendChild(housingImage);
+    });
+    reader.readAsDataURL(file);
+  }
 });
 
 export {setAddress, resetMainForm};
