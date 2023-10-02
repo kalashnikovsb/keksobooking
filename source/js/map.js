@@ -1,3 +1,5 @@
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import {showAlert} from './utils.js';
 import {activateMainForm, activateFilterForm} from './page.js';
 import {setAddress} from './mainForm.js';
@@ -13,13 +15,13 @@ const CITY_CENTER = {
   lng: 139.75555,
 };
 
-const mainPinIcon = window.L.icon({
+const mainPinIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
 
-const pinIcon = window.L.icon({
+const pinIcon = L.icon({
   iconUrl: '../img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
@@ -33,7 +35,7 @@ const refreshMarkers = (offers) => {
     });
   }
   tempOffers.forEach((offer) => {
-    const marker = window.L.marker(
+    const marker = L.marker(
       {
         lat: offer.location.lat,
         lng: offer.location.lng,
@@ -54,7 +56,7 @@ const resetMainMarker = () => {
   setAddress(CITY_CENTER);
 };
 
-const map = window.L.map(mapElement)
+const map = L.map(mapElement)
   .on('load', () => {
     activateMainForm();
     getData(
@@ -67,14 +69,14 @@ const map = window.L.map(mapElement)
   })
   .setView(CITY_CENTER, 13);
 
-window.L.tileLayer(
+L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
 
-const mainMarker = window.L.marker(
+const mainMarker = L.marker(
   CITY_CENTER,
   {
     draggable: true,
