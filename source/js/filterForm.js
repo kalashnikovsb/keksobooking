@@ -9,6 +9,7 @@ const HIGH_PRICE = 50000;
 
 const resetFilterForm = () => {
   filterForm.reset();
+  refreshMarkers(offers);
 };
 
 const filterByType = (offer, value) => {

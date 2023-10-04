@@ -1,4 +1,5 @@
 import {sendData} from './api.js'
+import {resetFilterForm} from './filterForm.js'
 import {setPageToDefault} from './page.js'
 import {showSuccessPopup, showErrorPopup} from './popups.js';
 
@@ -96,6 +97,7 @@ const setAddress = (value) => {
 
 const resetMainForm = () => {
   mainForm.reset();
+  resetFilterForm();
   adjustPrice();
 };
 
